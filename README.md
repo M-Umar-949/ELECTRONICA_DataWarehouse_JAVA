@@ -1,5 +1,5 @@
 # ELECTRONICA_DataWarehouse_JAVA
-Data Warehousing demonstration with OLAP queries. Custom join (HYBRIDJOIN) is implemented.
+Data Warehousing demonstration with OLAP queries. Custom join (HYBRIDJOIN) is implemented (can be improved).
 
 To run the Project run the main file named "Controller.java"
 The external libraries used are the mySQL- java connector 
