@@ -38,9 +38,9 @@ public class Hybridjoin extends Thread
     {
         tuplesProcessed = 0;
     }
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/ELECTRONICA_DW";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "umar@123";
+    private static final String DB_URL = "YOUR_DB_URL_MYSQL";    // Install jdbc java-MySQL connector first
+    private static final String DB_USER = "YOUR_USER_NAME";
+    private static final String DB_PASSWORD = "YOUR_DB_PASSWORD";
     @Override
     public void run() 
     {
