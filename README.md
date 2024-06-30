@@ -1,24 +1,24 @@
-# ELECTRONICA_DataWarehouse_JAVA
-Data Warehousing demonstration with OLAP queries. Custom join (HYBRIDJOIN) is implemented (can be improved).
+# ELECTRONICA Data Warehouse with JAVA
 
-To run the Project run the main file named "Controller.java"
-The external libraries used are the mySQL- java connector 
+Data Warehousing demonstration with OLAP queries. A custom join (HYBRIDJOIN) is implemented (can be improved).
 
+To run the project, execute the main file named `Controller.java`. The external libraries used include the MySQL Java connector.
 
-# Code Files Description
-## Controller.java:
-	This is the main file. This file starts its corresponding thread and also the other two threads. This file is responsible for the load given to the stream generator thread. It receives the number of tuples proceed in the hybrid join files and adjust the load size i.e., increasing or decreasing it so that the join operation does not get overload or underload.
+## Code Files Description
 
-## StreamGenerator.java:
-	This file is responsible for generating the data streams from the transaction.csv file. Initially 1000 tuples are sent to the Hybrid join thread and the after that the number of tuples streamed are being decided from the number of tuples processed. This file receives the tuples processed which were sent from Hybrid join thread to the controller.java and then increase or decrease the load size accordingly.
-	
-## Hybridjoin.java:
-	This is the main file on which my whole project is based. This file receives the streamed data from the stream generator thread and load the tuples in the Multihashmap along with it, I am maintaining a queue which keep record of the joining attributes i.e., Productid in my case. Each node in the queue is pointing to its corresponding tuple in the Multihashtable. Then I load a chunk of master data using the buffered reader provided in java. This chunk of master data is loaded based on the 10 oldest node and if they match with the join attribute of the master data tuple then I merger both the tuples i.e., the transaction tuple from Multihashmap and the received master data tuple from the buffered reader. After merging, the tuples are added to the data warehouse. The matched tuples are then removed from the Multihashmap along with there join attribute in the queue and the variable tuplesprocessed is incremented which was sent to the controller thread. 
+### Controller.java
+This is the main file. It starts its corresponding thread and also the other two threads. This file is responsible for managing the load given to the `StreamGenerator` thread. It receives the number of tuples processed in the hybrid join files and adjusts the load size, i.e., increasing or decreasing it so that the join operation does not get overloaded or underloaded.
 
-	Also in this thread, I am doing preprocessing with the date format. This preprocessing includes extracting the date with the standard format and the month, quarter and is_weekend using the java. time library.
+### StreamGenerator.java
+This file is responsible for generating the data streams from the `transaction.csv` file. Initially, 1000 tuples are sent to the `HybridJoin` thread. After that, the number of tuples streamed is determined based on the number of tuples processed. This file receives the processed tuples sent from the `HybridJoin` thread to `Controller.java` and then increases or decreases the load size accordingly.
 
-	The function insertintoDW () is responsible for all the data insertion queries. It calls the getDateAttributes (date received) and inserts the data accordingly. Also I am checking for duplicate order IDs in the function and not inserting the duplicates because each transaction should have a unique ID. The function isOrderIDExists () is responsible for this.
+### HybridJoin.java
+This is the main file on which the entire project is based. It receives the streamed data from the `StreamGenerator` thread and loads the tuples into a `MultiHashMap`. Additionally, it maintains a queue that keeps a record of the joining attributes, i.e., `ProductID` in this case. Each node in the queue points to its corresponding tuple in the `MultiHashMap`. 
 
-	Moreover many functions are implemented. For instance, the getters of the join attribute, Loader function for the master data and received streamed data etc.
+Then, a chunk of master data is loaded using the `BufferedReader` provided in Java. This chunk of master data is loaded based on the 10 oldest nodes. If they match with the join attribute of the master data tuple, the tuples are merged (i.e., the transaction tuple from the `MultiHashMap` and the received master data tuple from the `BufferedReader`). After merging, the tuples are added to the data warehouse. The matched tuples are then removed from the `MultiHashMap` along with their join attribute in the queue, and the variable `tuplesProcessed` is incremented, which is sent to the `Controller` thread.
 
+Also in this thread, preprocessing is done with the date format. This preprocessing includes extracting the date with the standard format and the month, quarter, and whether it is a weekend using the `java.time` library.
 
+The function `insertIntoDW()` is responsible for all the data insertion queries. It calls `getDateAttributes(dateReceived)` and inserts the data accordingly. Additionally, it checks for duplicate order IDs in the function and does not insert duplicates because each transaction should have a unique ID. The function `isOrderIDExists()` is responsible for this.
+
+Moreover, many functions are implemented, such as getters of the join attribute, loader functions for the master data and received streamed data, etc.
