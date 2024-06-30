@@ -1,6 +1,6 @@
 # ELECTRONICA Data Warehouse with JAVA
 
-This project demonstrates a data warehousing system with OLAP queries, featuring a custom join algorithm (HYBRIDJOIN) that can be further optimized. The main goal is to efficiently manage and process data streams for insertion into a data warehouse.
+This project demonstrates a data warehousing system with OLAP queries, featuring a custom join algorithm (HYBRIDJOIN) that can be further optimized. The main goal is to efficiently manage and process data streams for insertion into a data warehouse. <br>
 To run the project, execute the main file named `Controller.java`. The external libraries used include the MySQL Java connector.
 
 ## Code Files Description
